@@ -1,0 +1,4 @@
+mkdir ram
+mkrfs /dev/rda
+mount -t rfs /dev/rda /ram
+hello

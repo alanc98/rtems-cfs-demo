@@ -1,0 +1,8 @@
+*.o
+*.lis
+*.elf
+*.bin
+*.elf.pre
+*.gz
+*.img
+tarfile

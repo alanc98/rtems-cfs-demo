@@ -4,4 +4,5 @@
 *.pre
 *.d
 *.img
+*.elf
 tarfile

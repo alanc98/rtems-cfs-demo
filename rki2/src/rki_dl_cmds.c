@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include "rki_config.h"
 
 #ifdef RKI_INCLUDE_DL_CMDS
 
@@ -22,7 +23,7 @@ int dl_load_and_start_cfe( int argc, char *argv[])
    int    unresolved;
    char*  message = "loaded";
 
-   handle = dlopen ("/cf/apps/cfe-core.o", RTLD_NOW | RTLD_GLOBAL);
+   handle = dlopen ("/nonvol/core-cpu1.exe", RTLD_NOW | RTLD_GLOBAL);
    if (!handle)
    {
      printf("dlopen failed: %s\n", dlerror());
@@ -39,15 +40,15 @@ int dl_load_and_start_cfe( int argc, char *argv[])
    }
    printf ("handle: %p %s\n", handle, message);
 
-   call = dlsym (handle, "goCFE");
+   call = dlsym (handle, "OS_BSPMain");
    if (call == NULL)
    {
-     printf("dlsym failed: symbol start_cfe not found\n");
+     printf("dlsym failed: symbol OS_BSPMain not found\n");
      return 1;
    }
    else
    {
-      printf("dlsym OK: symbol start_cfe found\n");
+      printf("dlsym OK: symbol OS_BSPMain found\n");
    }
 
 #if 1

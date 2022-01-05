@@ -62,7 +62,7 @@
    /*
    ** Include and start the telnetd server
    */
-   #define RKI_INCLUDE_TELNETD_SERVER
+   #undef RKI_INCLUDE_TELNETD_SERVER
 
    /*
    ** Include and start the RTEMS ftp server

@@ -3,6 +3,6 @@
 *.gz
 *.pre
 *.d
-*.img
+rtems*.img
 *.elf
 tarfile

@@ -1,0 +1,3 @@
+setenv bootdelay 5
+uenvcmd=run boot
+boot=fatload mmc 0 0x80800000 rtems-rki.img ; fatload mmc 0 0x88000000 am335x-boneblack.dtb ; fdt addr 0x88000000; fatload mmc 0 0x88100000 am335x-i2c-overlay.dtbo; fdt resize 0x1000; fdt apply 0x88100000 ; bootm 0x80800000 - 0x88000000

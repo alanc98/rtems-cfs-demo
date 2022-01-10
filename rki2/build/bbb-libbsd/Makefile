@@ -17,6 +17,8 @@ BSP ?= beagleboneblack
 ##
 include ../rtems-paths.mak
 
+include config/symbols.mak
+
 ##
 ## Compiler paths
 ##
@@ -57,7 +59,7 @@ BEAGLE_UBOOT     = rtems-rki.img
 ##
 ## Objects to build
 ##
-OBJS = rki_init.o rki_libbsd.o rki_net_svc.o rki_shell_cmds.o rki_dl_cmds.o rki_filesys.o deps.o
+OBJS = rki_init.o rki_libbsd.o rki_net_svc.o rki_shell_cmds.o rki_dl_cmds.o rki_filesys.o
 OBJS += target_shell_cmds.o
 
 ##
@@ -179,9 +181,9 @@ $(TAR_IMAGE)::
 ## add symtab.o for symbol table
 ##
 $(EXE_TARGET): $(OBJS) $(TAR_IMAGE)
-	$(COMPILER) $(DEBUG_FLAGS) $(LDFLAGS) -o $(EXE_TARGET_PRE) $(OBJS) $(TAR_IMAGE) $(LIBS)
+	$(COMPILER) $(DEBUG_FLAGS) $(LDFLAGS) $(FORCE_SYMBOLS) -o $(EXE_TARGET_PRE) $(OBJS) $(TAR_IMAGE) $(LIBS)
 	$(RTEMS_SYMS) -v -e -c "-mcpu=cortex-a8 -ffunction-sections -fdata-sections -Wl,--gc-sections" -o dl-sym.o $(EXE_TARGET_PRE)
-	$(COMPILER) $(DEBUG_FLAGS) $(LDFLAGS) -o $(EXE_TARGET) $(OBJS) $(TAR_IMAGE) $(LIBS) dl-sym.o
+	$(COMPILER) $(DEBUG_FLAGS) $(LDFLAGS) $(FORCE_SYMBOLS) -o $(EXE_TARGET) $(OBJS) $(TAR_IMAGE) $(LIBS) dl-sym.o
 	$(OBJCOPY) -O binary --strip-all $(EXE_TARGET) $(BINARY_TARGET)
 	$(SIZE) $(EXE_TARGET)
 	gzip -9 $(BINARY_TARGET)

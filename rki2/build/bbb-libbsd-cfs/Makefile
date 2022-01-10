@@ -70,7 +70,7 @@ BEAGLE_UBOOT     = rtems-rki.img
 ##
 ## Objects to build
 ##
-OBJS = rki_init.o rki_libbsd.o rki_net_svc.o rki_shell_cmds.o rki_dl_cmds.o rki_filesys.o deps.o
+OBJS = rki_init.o rki_libbsd.o rki_net_svc.o rki_shell_cmds.o rki_dl_cmds.o rki_filesys.o
 OBJS += target_shell_cmds.o
 
 ##
@@ -192,7 +192,7 @@ default::$(EXE_TARGET)
 ##
 $(TAR_IMAGE)::
 	$(CP) -f  $(CFS_APP_BUILD_PATH)/cfe_es_startup.scr $(DYNOBJPATH)/cfe_es_startup.scr
-	# $(CP) -f  $(CFS_APP_BUILD_PATH)/*.obj $(DYNOBJPATH)
+	$(CP) -f  $(CFS_APP_BUILD_PATH)/*.obj $(DYNOBJPATH)
 	$(CP) -f  $(CFS_APP_BUILD_PATH)/*.tbl $(DYNOBJPATH)
 	$(CD) rootfs; $(TAR) cf ../tarfile $(shell $(LS) rootfs)
 	$(LINKER) -r --noinhibit-exec -o $(TAR_IMAGE) -b binary tarfile
@@ -217,6 +217,7 @@ clean::
 	-$(RM) $(OBJS) $(EXE_TARGET) $(EXE_TARGET_PRE) $(BINARY_TARGET)
 	-$(RM) $(DYNOBJPATH)/cfe_es_startup.scr
 	-$(RM) $(DYNOBJPATH)/*.tbl
+	-$(RM) $(DYNOBJPATH)/*.obj
 	-$(RM) $(OBJS) $(EXE_TARGET) $(EXE_TARGET_PRE) $(BINARY_TARGET) $(BINARY_TARGET).gz
 	-$(RM) $(TAR_IMAGE) tarfile
 	-$(RM) *.lis

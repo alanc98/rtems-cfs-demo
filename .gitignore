@@ -1,4 +1,6 @@
 *.o
+*.obj
+*.tbl
 *.lis
 *.gz
 *.pre
@@ -6,3 +8,4 @@
 rtems*.img
 *.elf
 tarfile
+cfe_es_startup.scr

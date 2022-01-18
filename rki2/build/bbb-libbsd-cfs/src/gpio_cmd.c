@@ -62,12 +62,20 @@ int test_gpio_cmd( int argc, char *argv[])
      return(sc);
   }
 
-  printf("Calling rtems_gpio_request_pin function BBB_P9_41\n");
+  printf("Calling rtems_gpio_request_pin function BBB_P8_10\n");
   sc = rtems_gpio_request_pin(
-    BBB_P9_41, DIGITAL_OUTPUT, false, false, NULL);
+    BBB_P8_10, DIGITAL_OUTPUT, false, false, NULL);
   if (sc != RTEMS_SUCCESSFUL )
   {
-     printf("Failed to request USER PIN BBB_P9_41\n");
+     printf("Failed to request USER PIN BBB_P8_10\n");
+     return(sc);
+  }
+  printf("Calling rtems_gpio_request_pin function BBB_P8_10\n");
+  sc = rtems_gpio_request_pin(
+    BBB_P8_12, DIGITAL_OUTPUT, false, false, NULL);
+  if (sc != RTEMS_SUCCESSFUL )
+  {
+     printf("Failed to request USER PIN BBB_P8_12\n");
      return(sc);
   }
   /* Pattern Generation using User Leds */
@@ -99,16 +107,23 @@ int test_gpio_cmd( int argc, char *argv[])
      rtems_task_wake_after(25);
 
      /* Breadboard LED */
-     rtems_gpio_set(BBB_P9_41);
+     rtems_gpio_set(BBB_P8_10);
      rtems_task_wake_after(25);
-     rtems_gpio_clear(BBB_P9_41);
+     rtems_gpio_clear(BBB_P8_10);
+     rtems_task_wake_after(25);
+
+     /* Breadboard LED */
+     rtems_gpio_set(BBB_P8_12);
+     rtems_task_wake_after(25);
+     rtems_gpio_clear(BBB_P8_12);
      rtems_task_wake_after(25);
   }
   rtems_gpio_release_pin(BBB_LED_USR0);
   rtems_gpio_release_pin(BBB_LED_USR1);
   rtems_gpio_release_pin(BBB_LED_USR2);
   rtems_gpio_release_pin(BBB_LED_USR3);
-  rtems_gpio_release_pin(BBB_P9_41);
+  rtems_gpio_release_pin(BBB_P8_10);
+  rtems_gpio_release_pin(BBB_P8_12);
   printf("GPIO Test done!\n");  
 
   return(0);
@@ -121,18 +136,18 @@ int init_gpio_cmd(int argc, char *argv[])
 {
   rtems_status_code sc;
 
-  printf("Initialize GPIO P9_41\n");
+  printf("Initialize GPIO P8_10\n");
   
   /* Initializes the GPIO API */
   printf("Calling rtems_gpio_initialize\n");
   rtems_gpio_initialize ();
 
-  printf("Calling rtems_gpio_request_pin function BBB_P9_41\n");
+  printf("Calling rtems_gpio_request_pin function BBB_P8_10\n");
   sc = rtems_gpio_request_pin(
-    BBB_P9_41, DIGITAL_OUTPUT, false, false, NULL);
+    BBB_P8_10, DIGITAL_OUTPUT, false, false, NULL);
   if (sc != RTEMS_SUCCESSFUL )
   {
-     printf("Failed to request USER PIN BBB_P9_41\n");
+     printf("Failed to request USER PIN BBB_P8_10\n");
      return(sc);
   }
   return(0);
@@ -143,9 +158,9 @@ int init_gpio_cmd(int argc, char *argv[])
 */
 int toggle_gpio_on_cmd( int argc, char *argv[])
 {
-  printf("Toggle GPIO P9_41 on\n");
+  printf("Toggle GPIO P8_10 on\n");
   /* Power Relay GPIO on*/
-  rtems_gpio_set(BBB_P9_41);
+  rtems_gpio_set(BBB_P8_10);
 
   return(0);
 }
@@ -155,9 +170,9 @@ int toggle_gpio_on_cmd( int argc, char *argv[])
 */
 int toggle_gpio_off_cmd( int argc, char *argv[])
 {
-  printf("Toggle GPIO P9_41 off\n");
+  printf("Toggle GPIO P8_10 off\n");
   /* Power Relay GPIO off */
-  rtems_gpio_clear(BBB_P9_41);
+  rtems_gpio_clear(BBB_P8_10);
 
   return(0);
 }
@@ -167,7 +182,7 @@ int toggle_gpio_off_cmd( int argc, char *argv[])
 */
 int release_gpio_cmd( int argc, char *argv[])
 {
-  printf("Release GPIO P9_41 pin\n");
-  rtems_gpio_release_pin(BBB_P9_41);
+  printf("Release GPIO P8_10 pin\n");
+  rtems_gpio_release_pin(BBB_P8_10);
   return(0);
 }

@@ -1,10 +1,10 @@
 # rtems-cfs-demo
-This is the repository for the 2022 FSW Workshop Beaglebone Black RTEMS core Flight System demo. I'm sure there are things that can be improved and fixed in here, but the primary goal of this repository is to be reproducible. I hope that a year or two after the workshop and my demo is given, you could still use this repository to build and run the demo. We shall see if it works in a year or two. I think the docker image is a key to allowing this to work.
+This is the repository for the 2022 FSW Workshop Beaglebone Black RTEMS core Flight System demo. I'm sure there are things that can be improved and fixed in here, but the primary goal of this repository is to be reproducible. I hope that a year or two after the workshop and my demo is given, you could still use this repository to build and run the demo. We shall see if it works in a year or two. I think the docker image is key to allowing this to work.
 
 It consists of:
 - A set of Dockerfiles and scripts to build a docker based RTEMS development kit. Specific commits are used to try to keep the demo from breaking when the RTEMS repositories are updated.
 - The RTEMS Kernel Image Project (RKI). This has the RTEMS startup code, and it is where the project executable image is created.
-- A snapshot of the cFS bundle. This has forks of the repositories found at: https://github.com/nasa/cFS
+- A snapshot of the cFS bundle. This has forks of the repositories found at: https://github.com/nasa/cFS . Again, the forks here point to specific commits of the submodules, so hopefully as long as the repos exist, this demo can be reproduced.
 
 # Development environment:
 You will need to build an RTEMS 6 ARM toolchain, the "beagleboneblack" BSP, and the RTEMS libbsd project. There are a few options here:

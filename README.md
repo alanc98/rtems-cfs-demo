@@ -19,6 +19,10 @@ This demo is built in two parts: The cFS and the RTEMS Kernel Image in the rki2 
 - cFS Table files. These are the binary tables that are loaded at runtime and used by the applications.
 - cFS Startup script file.
 
+The RTEMS Kernel Image is built using a regular Makefile and links the executable image that is loaded on the board. How does it include the cFS? In this demo, it does the following:
+- It links the cFE core object along with the other objects in the RTEMS Kernel Image. Note that if you try to build the rki2 directory first, the link will fail, because there is no cFE core object.
+- It copies the cFS application objects, tables, and startup script into a tar image that is unpacked into a RAM disk when RTEMS starts.
+
 ## If you built your own RTEMS toolchain
 Before building you may need to change the path in the cFS CMake toolchain file. It can be found in:
 ```
@@ -71,12 +75,12 @@ Build the RTEMS Kernel Image:
 # make
 ```
 
-## OK, I build the cFS and RTEMS Kernel Image, what do I run?
+## OK, I built the cFS and RTEMS Kernel Image, where is the image that I run on the Beaglebone?
 
-When everything builds, the image is in:
+The executable image is:
 ```
 rki2/build/bbb-libbsd-cfs/rtems-rki.img
 ```
 
-This can be copied to the SD card so u-boot can boot the RTEMS + cFS image. Where are the cFS app objects, tables, and startup script? They are bundled in the image in the IMFS + TAR file system that RTEMS will unpack into the RAM disk.
+This can be copied to the SD card so u-boot can boot the RTEMS + cFS image. Where are the cFS app objects, tables, and startup script? They are bundled in the image in the IMFS + TAR file system that RTEMS will unpack into the RAM disk. I did not intend to document all of the details about running RTEMS on the Beagle here. You may need to consult the RTEMS docs at https://docs.rtems.org.
 

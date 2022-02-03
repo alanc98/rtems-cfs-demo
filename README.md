@@ -21,34 +21,6 @@ This demo is built in two parts: The cFS and the RTEMS Kernel Image in the rki2 
 
 The RTEMS Kernel Image is built using a regular Makefile and links the final executable image that is loaded on the board. Earlier it was mentioned that the cFE core is an unlinked object that can either be loaded by this RTEMS image, or the cFE core object can be linked directly in this image. In the case of the Beaglebone and RTEMS ARM architecture, the dynamic loader will not successfully load the cFE core, but it will load simple apps. So in this case we will just link the cFE core object as part of the RTEMS Kernel Image that is loaded on the board. Note that if you try to build the rki2 directory first, the link will fail, because there is no cFE core object. The Makefile copies the cFS application objects, tables, and startup script into a tar image that is unpacked into a RAM disk when RTEMS starts.
 
-## Building with your own RTEMS toolchain:
-Before building you may need to change the paths in the cFS CMake toolchain file. There is a path for the Tools and the BSPs. Depending on your setup, they may be the same path. The toolchain file can be found in:
-```
-cFS/bbb_defs/toolchain-arm-bbb-rtems6.cmake
-```
-
-If you changed the paths in the cFS CMake toolchain file, you will also have to change the paths in the RTEMS Kernel Image:
-```
-rki2/build/rtems-paths.mak
-```
-I should convert the RTEMS Kernel Image to CMake, so the cFS and rki2 projects can share the same toolchain file. Having two different build systems can introduce errors if the options do not match.
-
-
-Build the cFS:
-```
-$ cd cFS
-$ make SIMULATION=arm-bbb-rtems6 prep
-$ make
-$ make install
-```
-
-Build the RTEMS Kernel Image:
-```
-$ cd rki2
-$ cd build/bbb-libbsd-cfs
-$ make
-```
-
 ## If you are using the Docker image to build: 
 I use a helper script to pull and start the toolchain image:
 ```
@@ -73,6 +45,32 @@ Build the RTEMS Kernel Image:
 # cd rki2
 # cd build/bbb-libbsd-cfs
 # make
+```
+## Building with your own RTEMS toolchain:
+Before building you may need to change the paths in the cFS CMake toolchain file. There is a path for the Tools and the BSPs. Depending on your setup, they may be the same path. The toolchain file can be found in:
+```
+cFS/bbb_defs/toolchain-arm-bbb-rtems6.cmake
+```
+
+If you changed the paths in the cFS CMake toolchain file, you will also have to change the paths in the RTEMS Kernel Image:
+```
+rki2/build/rtems-paths.mak
+```
+I should convert the RTEMS Kernel Image to CMake, so the cFS and rki2 projects can share the same toolchain file. Having two different build systems can introduce errors if the options do not match.
+
+Build the cFS:
+```
+$ cd cFS
+$ make SIMULATION=arm-bbb-rtems6 prep
+$ make
+$ make install
+```
+
+Build the RTEMS Kernel Image:
+```
+$ cd rki2
+$ cd build/bbb-libbsd-cfs
+$ make
 ```
 
 ## Running the RTEMS image on the Beaglebone black board:

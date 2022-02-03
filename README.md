@@ -27,7 +27,7 @@ I use a helper script to pull and start the toolchain image:
 $ ./run-rtems6-arm-bbb-libbsd.sh
 ```
 
-Once you are in the running container shell, switch to the host directory and you can now build the cFS and RTEMS Kernel Image:
+Once you are in the running container's shell, switch to the host directory and you can now build the cFS and RTEMS Kernel Image:
 ```
 # cd /host
 ```

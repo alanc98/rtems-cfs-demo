@@ -22,6 +22,17 @@ This demo is built in two parts: The cFS and the RTEMS Kernel Image in the rki2 
 
 The RTEMS Kernel Image is built using a regular Makefile and links the final executable image that is loaded on the board. Earlier it was mentioned that the cFE core is an unlinked object that can either be loaded by this RTEMS image, or the cFE core object can be linked directly in this image. In the case of the Beaglebone and RTEMS ARM architecture, the dynamic loader will not successfully load the cFE core, but it will load simple apps. So in this case we will just link the cFE core object as part of the RTEMS Kernel Image that is loaded on the board. On the Sparc architecture, the loader will load the cFE core and apps with no problem. Note that if you try to build the rki2 directory first, the link will fail, because there is no cFE core object. The Makefile copies the cFS application objects, tables, and startup script into a tar image that is unpacked into a RAM disk when RTEMS starts.
 
+## A couple of installation pre-requisites:
+If you are using the Docker image to build everything, then you need to have Docker or an equivalent container environment installed. You also need git to checkout the repo. I can build this on my Windows 10 PC using WSL2 and Docker. I'm sure it can be done without WSL2, but I just find the linux shell more familiar.
+
+## Checkout this Repository and Update all Submodules First:
+Before getting started make sure you initialize and update all of the submodules in this repo:
+```
+$ git clone https://github.com/alanc98/rtems-cfs-demo.git
+$ cd rtems-cfs-demo
+$ git submodule update --init --recursive
+```
+
 ## If you are using the Docker image to build: 
 I use a helper script to pull and start the toolchain image:
 ```

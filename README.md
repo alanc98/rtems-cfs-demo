@@ -7,7 +7,7 @@ The repository consists of:
 - A set of Dockerfiles and scripts to build a docker based RTEMS development kit (docker). Specific commits are used to try to keep the demo from breaking when the RTEMS repositories are updated.
 - The RTEMS Kernel Image Project (rki2). This directory has the RTEMS startup code, and it is where the project executable image is created.
 - A snapshot of the cFS bundle (cFS). This has forks of the repositories found at: https://github.com/nasa/cFS . Again, the forks here point to specific commits of the submodules, so hopefully as long as the repos exist, this demo can be reproduced.
-- The micro SD card files that are needed to boot RTEMS on the beaglebone black (sd-card). The file in this directory need to be copied to a FAT formatted SD card. The partition should also be marked as bootable. The beaglebone black may also try to boot an image from the EMMC chip on the board before it boots the micro SD card.
+- The micro SD card files that are needed to boot RTEMS on the beaglebone black (sd-card). The file in this directory need to be copied to a FAT formatted SD card. The partition should also be marked as bootable. Note that the beaglebone black may also try to boot an image from the EMMC chip on the board before it boots the micro SD card.
 
 # Development environment:
 You will need to build a RTEMS 6 ARM toolchain, the "beagleboneblack" BSP, and the RTEMS libbsd project for the beaglebone black. I did not intend to cover setting up the RTEMS development environment in this demo, but there are a few options:

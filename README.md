@@ -22,7 +22,10 @@ This demo is built in two parts: The cFS and the RTEMS Kernel Image in the rki2 
 
 The RTEMS Kernel Image is built using a regular Makefile and links the final executable image that is loaded on the board. Earlier it was mentioned that the cFE core is an unlinked object that can either be loaded by this RTEMS image, or the cFE core object can be linked directly in this image. In the case of the Beaglebone and RTEMS ARM architecture, the dynamic loader will not successfully load the cFE core, but it will load simple apps. So in this case we will just link the cFE core object as part of the RTEMS Kernel Image that is loaded on the board. On the Sparc architecture, the loader will load the cFE core and apps with no problem. Note that if you try to build the rki2 directory first, the link will fail, because there is no cFE core object. The Makefile copies the cFS application objects, tables, and startup script into a tar image that is unpacked into a RAM disk when RTEMS starts.
 
-## A couple of installation pre-requisites:
+## A note on security:
+The docker image is a bare Ubuntu image with the RTEMS toolchain and BSPs. I run it as root, so if you have security requirements at your organization, you may need to adjust how you run this. (rootles container engine, run as a different user, etc). Also the demo shown will use the BeagleBone Black with RTEMS on a local network, and is not intended to be connected directly to the internet or on a corporate network.
+
+## A couple of installation prerequisites:
 If you are using the Docker image to build everything, then you need to have Docker or an equivalent container environment installed. You also need git to checkout the repo. I can build this on my Windows 10 PC using WSL2 and Docker. I'm sure it can be done without WSL2, but I just find the linux shell more familiar.
 
 ## Checkout this Repository and Update all Submodules First:
@@ -58,6 +61,10 @@ Build the RTEMS Kernel Image:
 # cd build/bbb-libbsd-cfs
 # make
 ```
+Once you complete this step, you will have the rtems-rki.img ready to run!
+
+If you want to experiment with the rki2 without the cFS, just build the bbb-libbsd target.
+
 ## Building with your own RTEMS toolchain:
 Before building you may need to change the paths in the cFS CMake toolchain file. There is a path for the Tools and the BSPs. Depending on your setup, they may be the same path. The toolchain file can be found in:
 ```
@@ -92,5 +99,5 @@ After the rki2 build is complete, the executable image is:
 rki2/build/bbb-libbsd-cfs/rtems-rki.img
 ```
 
-This can be copied to the SD card so u-boot can boot the RTEMS + cFS image. Where are the cFS app objects, tables, and startup script? They are bundled in the image in the IMFS + TAR file system that RTEMS will unpack into the RAM disk. I did not intend to document all of the details about running RTEMS on the Beagle here. You may need to consult the RTEMS docs at https://docs.rtems.org.
+This can be copied to the SD card so u-boot can boot the RTEMS + cFS image. Where are the cFS app objects, tables, and startup script? They are bundled in the image in the IMFS + TAR file system that RTEMS will unpack into the RAM disk. If you need more information on building and running RTEMS, please consult the RTEMS docs at https://docs.rtems.org.
 
